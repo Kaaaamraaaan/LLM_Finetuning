@@ -28,7 +28,7 @@ def main():
         device_string = PartialState().process_index
         device_map = {'': device_string}
 
-    model_name = "/home/kamran.haddadian1/models/llama-3-8b-instruct/"
+    model_name = "./models/llama-3-8b-instruct/"
 
     bnb_config = BitsAndBytesConfig(load_in_8bit=True)
     model = AutoModelForCausalLM.from_pretrained(
@@ -55,11 +55,11 @@ def main():
     print('Model pad token ID:', model.config.pad_token_id)
 
     df = pd.read_json(
-        "/home/kamran.haddadian1/datasets/related_papers_books_wikis_final_version2.json",
+        "./datasets/related_papers_books_wikis_final_version2.json",
         lines=True, orient='records'
     )
     df2 = pd.read_json(
-        "/home/kamran.haddadian1/datasets/related_prompt_to_renewable_geothermal_energy_from_HuggingFaceH4_ultrachat_200k_for_llama3.json",
+        "./datasets/related_prompt_to_renewable_geothermal_energy_from_HuggingFaceH4_ultrachat_200k_for_llama3.json",
         lines=True, orient='records'
     )
 
