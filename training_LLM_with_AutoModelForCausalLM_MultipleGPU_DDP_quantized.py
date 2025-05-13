@@ -28,7 +28,7 @@ def main():
         device_string = PartialState().process_index
         device_map = {'': device_string}
 
-    model_name = "/home/kamran.haddadian1/models/llama-3-8b-instruct/"
+    model_name = "./models/llama-3-8b-instruct/"
 
     bnb_config = BitsAndBytesConfig(load_in_8bit=True)
     model = AutoModelForCausalLM.from_pretrained(
@@ -55,11 +55,11 @@ def main():
     print('Model pad token ID:', model.config.pad_token_id)
 
     df = pd.read_json(
-        "/home/kamran.haddadian1/datasets/related_papers_books_wikis_final_version2.json",
+        "./datasets/related_papers_books_wikis_final_version2.json",
         lines=True, orient='records'
     )
     df2 = pd.read_json(
-        "/home/kamran.haddadian1/datasets/related_prompt_to_renewable_geothermal_energy_from_HuggingFaceH4_ultrachat_200k_for_llama3.json",
+        "./datasets/related_prompt_to_renewable_geothermal_energy_from_HuggingFaceH4_ultrachat_200k_for_llama3.json",
         lines=True, orient='records'
     )
 
@@ -72,10 +72,10 @@ def main():
     print('Sample text:\n', concatenated_df['Text'][round(len(concatenated_df) / 2)])
 
     concatenated_df.to_json(
-        '/home/kamran.haddadian1/datasets/df_llama_3.jsonl',
+        './datasets/df_llama_3.jsonl',
         orient='records', lines=True
     )
-    data = load_dataset('json', data_files='/home/kamran.haddadian1/datasets/df_llama_3.jsonl', split="train")
+    data = load_dataset('json', data_files='./datasets/df_llama_3.jsonl', split="train")
 
     lora_config = LoraConfig(
         r=4,
@@ -95,13 +95,13 @@ def main():
     print('GPU 1:', torch.cuda.memory_allocated(1))
 
     training_args = transformers.TrainingArguments(
-        output_dir="/home/kamran.haddadian1/saved_finetunedmodel_llama-3/everything-version-2-thirdtry-learning-rate1e-5linear-parallel/",
+        output_dir="./saved_finetunedmodel_llama-3/everything-version-2-thirdtry-learning-rate1e-5linear-parallel/",
         per_device_train_batch_size=10,
         gradient_accumulation_steps=3,
         optim="paged_adamw_32bit",
         save_strategy="epoch",
         logging_strategy="epoch",
-        logging_dir="/home/kamran.haddadian1/logging_info_llama-3/everything-version-2-thirdtry-learning-rate1e-5-linear-parallel/",
+        logging_dir="./logging_info_llama-3/everything-version-2-thirdtry-learning-rate1e-5-linear-parallel/",
         learning_rate=1e-5,
         max_grad_norm=0.3,
         num_train_epochs=5,
