@@ -1,2 +1,5 @@
 # LLM_Finetuning
-In this project I added codes that I used to train Causal large langue models on clusters
+This project contains the code I used to fine-tune causal large language models on compute clusters.
+I implemented three different methods:
+Using AutoModelForCausalLM for training on both single and multiple GPUs.
+Using Unsloth to efficiently fine-tune the language model.
